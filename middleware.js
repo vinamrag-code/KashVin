@@ -40,7 +40,7 @@ export default async function middleware(request) {
     const credentials = getCredentials();
 
     if (username !== credentials.user || password !== credentials.pass) {
-        return unauthorized('Access denied', 403);
+        return unauthorized('Invalid credentials');
     }
 
     return fetch(request);
