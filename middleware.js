@@ -1,27 +1,51 @@
-import { NextResponse } from 'next/server';
+const DEFAULT_USER = 'KashVin';
+const DEFAULT_PASS = 'kashivinni1810';
 
-export function middleware(request) {
-    const auth = request.headers.get('authorization');
+function getCredentials() {
+    const user = typeof process !== 'undefined' && process.env?.BASIC_AUTH_USER
+        ? process.env.BASIC_AUTH_USER
+        : DEFAULT_USER;
+    const pass = typeof process !== 'undefined' && process.env?.BASIC_AUTH_PASS
+        ? process.env.BASIC_AUTH_PASS
+        : DEFAULT_PASS;
 
-    const USER = 'KashVin';
-    const PASS = 'kashivinni1810';
-
-    if (!auth) {
-        return new Response('Auth required', {
-            status: 401,
-            headers: {
-                'WWW-Authenticate': 'Basic realm="Secure Area"',
-            },
-        });
-    }
-
-    const encoded = auth.split(' ')[1];
-    const decoded = atob(encoded);
-    const [user, pass] = decoded.split(':');
-
-    if (user === USER && pass === PASS) {
-        return NextResponse.next();
-    }
-
-    return new Response('Access denied', { status: 403 });
+    return { user, pass };
 }
+
+function unauthorized(message, status = 401) {
+    const headers = status === 401
+        ? { 'WWW-Authenticate': 'Basic realm="Secure Area"' }
+        : {};
+
+    return new Response(message, { status, headers });
+}
+
+export default async function middleware(request) {
+    const authHeader = request.headers.get('authorization');
+
+    if (!authHeader || !authHeader.startsWith('Basic ')) {
+        return unauthorized('Auth required');
+    }
+
+    let decoded;
+    try {
+        decoded = atob(authHeader.slice(6));
+    } catch {
+        return unauthorized('Invalid authorization header');
+    }
+
+    const separatorIndex = decoded.indexOf(':');
+    const username = separatorIndex >= 0 ? decoded.slice(0, separatorIndex) : decoded;
+    const password = separatorIndex >= 0 ? decoded.slice(separatorIndex + 1) : '';
+    const credentials = getCredentials();
+
+    if (username !== credentials.user || password !== credentials.pass) {
+        return unauthorized('Access denied', 403);
+    }
+
+    return fetch(request);
+}
+
+export const config = {
+    matcher: '/:path*',
+};

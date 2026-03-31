@@ -48,6 +48,12 @@ php -S localhost:8000
 
 Then open `http://localhost:8000` in your browser.
 
+## 🔐 Private Authentication
+
+- Deployment auth is handled in `middleware.js`.
+- Local and deployed environments both use the same Basic Auth check when the middleware is active.
+- For deployment, the middleware uses `BASIC_AUTH_USER` and `BASIC_AUTH_PASS` if they are set. If not, it falls back to the hardcoded defaults currently in the file.
+
 ## 🎨 Customization
 
 ### Adding Your Photos
