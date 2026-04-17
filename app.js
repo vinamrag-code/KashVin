@@ -64,9 +64,9 @@ const Hero = () => {
     return (
         <section className="hero">
             {[...Array(12)].map((_, i) => (
-                <div 
-                    key={i} 
-                    className="floating-heart" 
+                <div
+                    key={i}
+                    className="floating-heart"
                     style={{
                         left: `${Math.random() * 90}%`,
                         top: `${Math.random() * 90}%`,
@@ -79,11 +79,11 @@ const Hero = () => {
                     {['💕', '💖', '💗', '💓', '💝', '💘'][Math.floor(Math.random() * 6)]}
                 </div>
             ))}
-            
+
             {[...Array(20)].map((_, i) => (
-                <div 
+                <div
                     key={`sparkle-${i}`}
-                    className="sparkle" 
+                    className="sparkle"
                     style={{
                         left: `${Math.random() * 100}%`,
                         top: `${Math.random() * 100}%`,
@@ -95,14 +95,14 @@ const Hero = () => {
             ))}
             <h1 className="hero-title">To the Love of My Life ❤️</h1>
             <div className="photo-carousel">
-                <div 
+                <div
                     className={`photo-container ${isRotating ? 'rotating' : ''}`}
                     onMouseEnter={() => setIsHoveringPhoto(true)}
                     onMouseLeave={() => setIsHoveringPhoto(false)}
                 >
-                    <img 
+                    <img
                         key={currentPhoto}
-                        src={photos[currentPhoto]} 
+                        src={photos[currentPhoto]}
                         alt="Beautiful moments"
                         className="carousel-image"
                         style={{
@@ -119,7 +119,7 @@ const Hero = () => {
                             onClick={() => handlePhotoChange(index)}
                             aria-label={`Go to photo ${index + 1}`}
                             style={{
-                                background: index === currentPhoto 
+                                background: index === currentPhoto
                                     ? 'linear-gradient(135deg, var(--pink-deep), var(--pink-medium))'
                                     : 'var(--pink-medium)',
                                 transform: index === currentPhoto ? 'scale(1.3)' : 'scale(1)'
@@ -135,118 +135,130 @@ const Hero = () => {
 // Gallery Component
 const Gallery = () => {
     const moments = [
-        { 
+        {
             image: 'images/photo1.jpeg',
             caption: 'Every moment with you feels like a dream come true 💕'
         },
-        { 
+        {
             image: 'images/photo2.jpeg',
             caption: 'Your smile is my favorite thing in the whole world 😊✨'
         },
-        { 
+        {
             image: 'images/photo3.jpeg',
             caption: 'Falling in love with you was the easiest thing I\'ve ever done 💖'
         },
-        { 
+        {
             image: 'images/photo4.jpeg',
             caption: 'You make my heart skip a beat every single day 💓'
         },
-        { 
+        {
             image: 'images/photo5.jpeg',
             caption: 'Being with you feels like home, safe and warm 🏠💕'
         },
-        { 
+        {
             image: 'images/photo6.jpeg',
             caption: 'You are my sunshine, my moon, and all my stars 🌙⭐'
         },
-        { 
+        {
             image: 'images/photo7.jpeg',
             caption: 'In your eyes, I found my forever home 👀💕'
         },
-        { 
+        {
             image: 'images/photo8.jpeg',
             caption: 'You turned my world into a beautiful place 🌍✨'
         },
-        { 
+        {
             image: 'images/photo9.jpeg',
             caption: 'Loving you is the best decision I\'ve ever made 💖'
         },
-        { 
+        {
             image: 'images/photo10.jpeg',
             caption: 'Every day with you is a new adventure 🗺️💕'
         },
-        { 
+        {
             image: 'images/photo11.jpeg',
             caption: 'You are my today and all of my tomorrows 📅💖'
         },
-        { 
+        {
             image: 'images/photo13.jpeg',
             caption: 'I fall in love with you more every single day 💕✨'
         },
-        { 
+        {
             image: 'images/photo14.jpeg',
             caption: 'You are my happy place, my peace, my everything 🧘💖'
         },
-        { 
+        {
             image: 'images/photo16.jpeg',
             caption: 'You are the missing piece I never knew I needed 🧩💖'
         },
-        { 
+        {
             image: 'images/photo17.jpeg',
             caption: 'Your love makes everything brighter and more beautiful ✨💕'
         },
-        { 
+        {
             image: 'images/photo18.jpeg',
             caption: 'I love how you make ordinary moments feel extraordinary 🌟💖'
         },
-        { 
+        {
             image: 'images/photo19.jpeg',
             caption: 'You are my favorite hello and my hardest goodbye 👋💕'
         },
-        { 
+        {
             image: 'images/photo20.jpeg',
             caption: 'Being yours is the greatest honor of my life 💍💖'
         },
-        { 
+        {
             image: 'images/photo21.jpeg',
             caption: 'Your love is the anchor that keeps me grounded ⚓💕'
         },
-        { 
+        {
             image: 'images/photo22.jpeg',
             caption: 'I love you more than words could ever express 📝💖'
         },
-        { 
+        {
             image: 'images/photo23.jpeg',
             caption: 'You are my always and forever, my one and only 💕✨'
         }
     ];
 
-    const totalItems = moments.length;
-    const angleStep = 360 / totalItems;
-
     return (
         <section className="section" id="moments">
-            <h2 className="section-title">Our Moments</h2>
-            <div className="gallery-3d-container">
-                <div className="gallery-3d-disc">
-                    {moments.map((moment, index) => {
-                        const angle = index * angleStep;
-                        return (
-                            <div
-                                key={index}
-                                className="gallery-3d-item"
-                                style={{
-                                    '--angle': `${angle}deg`,
-                                    '--index': index
-                                }}
-                            >
-                                <div className="gallery-item">
-                                    <img src={moment.image} alt={`Memory ${index + 1}`} />
-                                    <div className="gallery-caption">{moment.caption}</div>
-                                </div>
-                            </div>
-                        );
-                    })}
+            <h2 className="section-title">Our Beautiful Moments 💖</h2>
+            <div className="gallery-container">
+                {/* Decorative floating hearts */}
+                {[...Array(4)].map((_, i) => (
+                    <div
+                        key={i}
+                        className="gallery-heart"
+                        style={{
+                            animationDelay: `${i * 1}s`,
+                            fontSize: `${Math.random() * 1 + 1.8}rem`
+                        }}
+                    >
+                        {['💕', '💖', '💗', '💓'][i]}
+                    </div>
+                ))}
+
+                <div className="gallery-grid">
+                    {moments.map((moment, index) => (
+                        <div
+                            key={index}
+                            className="gallery-item"
+                            style={{
+                                animationDelay: `${index * 0.1}s`,
+                                opacity: 0,
+                                transform: 'translateY(30px)',
+                                animation: 'fadeInUp 0.8s ease-out forwards'
+                            }}
+                        >
+                            <img
+                                src={moment.image}
+                                alt={`Memory ${index + 1}`}
+                                loading="lazy"
+                            />
+                            <div className="gallery-caption">{moment.caption}</div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </section>
@@ -390,8 +402,8 @@ const Dates = () => {
             <div className="dates-timeline" ref={timelineRef}>
                 <div className="timeline-line"></div>
                 {dates.map((date, index) => (
-                    <div 
-                        key={index} 
+                    <div
+                        key={index}
                         className={`timeline-item ${visibleItems[index] ? 'visible' : ''}`}
                         style={{
                             animationDelay: `${index * 0.1}s`,
@@ -399,7 +411,7 @@ const Dates = () => {
                         }}
                         data-index={index}
                     >
-                        <div 
+                        <div
                             className="timeline-dot"
                             style={{
                                 background: date.color,
@@ -412,7 +424,7 @@ const Dates = () => {
                                 if (item) {
                                     item.style.transform = 'translateY(-15px) scale(1.05)';
                                     item.style.boxShadow = `0 30px 70px ${date.color.replace(')', ', 0.4)').replace('rgb', 'rgba')}`;
-                                    
+
                                     setTimeout(() => {
                                         item.style.transform = 'translateY(-10px) scale(1.03)';
                                         item.style.boxShadow = '0 25px 60px var(--shadow-medium)';
@@ -420,7 +432,7 @@ const Dates = () => {
                                 }
                             }}
                         ></div>
-                        <div 
+                        <div
                             className="timeline-content"
                             style={{
                                 borderColor: date.color.replace(')', ', 0.3)').replace('rgb', 'rgba'),
@@ -434,7 +446,7 @@ const Dates = () => {
                                 </div>
                             )}
                             {date.type && (
-                                <div 
+                                <div
                                     className="timeline-type"
                                     style={{ color: date.color }}
                                 >
@@ -442,7 +454,7 @@ const Dates = () => {
                                 </div>
                             )}
                             <h3 className="timeline-title">{date.title}</h3>
-                            
+
                             {date.sparkles && (
                                 <div className="sparkle" style={{
                                     position: 'absolute',
@@ -456,12 +468,12 @@ const Dates = () => {
                         </div>
                     </div>
                 ))}
-                
+
                 {/* Timeline floating hearts */}
                 {[...Array(8)].map((_, i) => (
-                    <div 
+                    <div
                         key={`timeline-heart-${i}`}
-                        className="floating-heart" 
+                        className="floating-heart"
                         style={{
                             left: `${Math.random() * 90 + 5}%`,
                             top: `${Math.random() * 100}%`,
@@ -579,8 +591,8 @@ const LoveNotes = () => {
             <h2 className="section-title">Love Notes from My Heart 💌</h2>
             <div className="love-notes">
                 {notes.map((note, index) => (
-                    <div 
-                        key={index} 
+                    <div
+                        key={index}
                         className="note-card"
                         data-index={index}
                         style={{
@@ -591,7 +603,7 @@ const LoveNotes = () => {
                             '--note-color': note.color
                         }}
                     >
-                        <span 
+                        <span
                             className="note-heart"
                             style={{
                                 color: note.color,
@@ -601,9 +613,9 @@ const LoveNotes = () => {
                         >
                             {note.icon}
                         </span>
-                        <Typewriter 
-                            text={note.text} 
-                            speed={25} 
+                        <Typewriter
+                            text={note.text}
+                            speed={25}
                             onComplete={() => {
                                 // Add a subtle animation when typing completes
                                 const heart = document.querySelector(`.note-card:nth-child(${index + 1}) .note-heart`);
@@ -612,10 +624,10 @@ const LoveNotes = () => {
                                 }
                             }}
                         />
-                        
+
                         {/* Decorative sparkles */}
                         {[...Array(3)].map((_, i) => (
-                            <div 
+                            <div
                                 key={i}
                                 className="sparkle"
                                 style={{
@@ -632,12 +644,12 @@ const LoveNotes = () => {
                     </div>
                 ))}
             </div>
-            
+
             {/* Floating hearts around notes section */}
             {[...Array(6)].map((_, i) => (
-                <div 
+                <div
                     key={`notes-heart-${i}`}
-                    className="floating-heart" 
+                    className="floating-heart"
                     style={{
                         left: `${Math.random() * 90 + 5}%`,
                         top: `${Math.random() * 30 + 35}%`,
@@ -659,22 +671,82 @@ const SurpriseModal = ({ isOpen, onClose }) => {
 
     return (
         <div className={`surprise-modal ${isOpen ? 'active' : ''}`} onClick={onClose}>
+            {/* Floating hearts in modal */}
+            {[...Array(8)].map((_, i) => (
+                <div 
+                    key={i}
+                    className="surprise-heart"
+                    style={{
+                        left: `${Math.random() * 90 + 5}%`,
+                        top: `${Math.random() * 90 + 5}%`,
+                        animationDelay: `${Math.random() * 3}s`,
+                        fontSize: `${Math.random() * 1 + 1.5}rem`,
+                        opacity: `${Math.random() * 0.3 + 0.5}`
+                    }}
+                >
+                    {['💕', '💖', '💗', '💓', '💝', '💘'][Math.floor(Math.random() * 6)]}
+                </div>
+            ))}
+            
             <div className="surprise-content" onClick={(e) => e.stopPropagation()}>
                 <button className="surprise-close" onClick={onClose}>×</button>
-                <h2 style={{ fontSize: '2rem', marginBottom: '1rem', fontFamily: "'Playfair Display', serif" }}>
-                    💝 A Special Message 💝
+                <h2 style={{ 
+                    fontSize: '2.2rem', 
+                    marginBottom: '1.5rem', 
+                    fontFamily: "'Playfair Display', serif",
+                    color: 'var(--pink-deep)',
+                    textShadow: '0 2px 4px var(--shadow-soft)'
+                }}>
+                    💝 A Special Message Just For You 💝
                 </h2>
-                <p style={{ fontSize: '1.2rem', lineHeight: '1.8', marginBottom: '1rem' }}>
+                <p style={{ 
+                    fontSize: '1.3rem', 
+                    lineHeight: '1.8', 
+                    marginBottom: '1.5rem',
+                    color: 'var(--text-dark)'
+                }}>
                     You mean the world to me, and I wanted to create something special just for you.
                 </p>
-                <p style={{ fontSize: '1.1rem', lineHeight: '1.8' }}>
-                    Hey love, I left a few little surprises around the room for you.
-                    Your first clue is waiting below 💛”
-                </p>
-                <p style={{ fontSize: '1.1rem', lineHeight: '1.8' }}>
-
-                    “I am small, Vinu loves me, and I share your name.
-                    Check where something crunchy waits patiently.”
+                <div style={{
+                    background: 'rgba(255, 255, 255, 0.7)',
+                    borderRadius: '15px',
+                    padding: '1.5rem',
+                    marginBottom: '1.5rem',
+                    borderLeft: '4px solid var(--pink-deep)'
+                }}>
+                    <p style={{ 
+                        fontSize: '1.2rem', 
+                        lineHeight: '1.7',
+                        color: 'var(--text-dark)',
+                        fontStyle: 'italic'
+                    }}>
+                        "Hey love, I left a few little surprises around the room for you.
+                        Your first clue is waiting below 💛"
+                    </p>
+                </div>
+                <div style={{
+                    background: 'rgba(255, 182, 193, 0.1)',
+                    borderRadius: '15px',
+                    padding: '1.5rem',
+                    border: '1px solid rgba(255, 182, 193, 0.3)'
+                }}>
+                    <p style={{ 
+                        fontSize: '1.2rem', 
+                        lineHeight: '1.7',
+                        color: 'var(--text-dark)',
+                        fontWeight: '500'
+                    }}>
+                        "I am small, Vinu loves me, and I share your name.<br/>
+                        Check where something crunchy waits patiently."
+                    </p>
+                </div>
+                <p style={{
+                    fontSize: '1rem',
+                    color: 'var(--text-light)',
+                    marginTop: '1.5rem',
+                    fontStyle: 'italic'
+                }}>
+                    With all my love, forever and always ❤️
                 </p>
             </div>
         </div>
@@ -697,15 +769,15 @@ const Controls = ({ theme, onThemeToggle, musicPlaying, onMusicToggle, hasMusicI
 
     return (
         <div className="controls">
-            <button 
-                className="control-btn" 
+            <button
+                className="control-btn"
                 onClick={onThemeToggle}
                 title="Toggle Day/Night Theme"
             >
                 {theme === 'day' ? '🌙' : '☀️'}
             </button>
-            <button 
-                className={`control-btn ${!hasMusicInteraction ? 'pulse' : ''}`} 
+            <button
+                className={`control-btn ${!hasMusicInteraction ? 'pulse' : ''}`}
                 onClick={onMusicToggle}
                 title={hasMusicInteraction ? "Toggle Background Music" : "Click to enable background music"}
             >
@@ -719,7 +791,7 @@ const Controls = ({ theme, onThemeToggle, musicPlaying, onMusicToggle, hasMusicI
 const SurpriseButton = ({ onClick }) => {
     return (
         <div className="surprise-button-container">
-            <button 
+            <button
                 className="surprise-button"
                 onClick={onClick}
             >
@@ -737,22 +809,22 @@ const RomanticQuotes = () => {
     const quotes = [
         {
             quote: "You are my today and all of my tomorrows.",
-            author: "— Leo Christopher",
+            author: "- Leo Christopher",
             icon: "✨"
         },
         {
             quote: "I saw that you were perfect, and so I loved you. Then I saw that you were not perfect and I loved you even more.",
-            author: "— Angelita Lim",
+            author: "- Angelita Lim",
             icon: "💫"
         },
         {
             quote: "I love you not only for what you are, but for what I am when I am with you.",
-            author: "— Elizabeth Barrett Browning",
+            author: "- Elizabeth Barrett Browning",
             icon: "🌟"
         },
         {
             quote: "If I had a flower for every time I thought of you... I could walk through my garden forever.",
-            author: "— Alfred Tennyson",
+            author: "- Alfred Tennyson",
             icon: "🌸"
         }
     ];
@@ -762,8 +834,8 @@ const RomanticQuotes = () => {
             <h2 className="section-title">Words That Describe Us 💬</h2>
             <div className="quotes-container">
                 {quotes.map((item, index) => (
-                    <div 
-                        key={index} 
+                    <div
+                        key={index}
                         className="quote-card"
                         style={{
                             animationDelay: `${index * 0.2}s`
@@ -782,12 +854,12 @@ const RomanticQuotes = () => {
 // Footer Component
 const Footer = () => {
     const currentYear = new Date().getFullYear();
-    
+
     return (
         <footer className="footer">
             <div className="footer-hearts">
                 {[...Array(5)].map((_, i) => (
-                    <span 
+                    <span
                         key={i}
                         className="footer-heart"
                         style={{
@@ -833,7 +905,7 @@ const App = () => {
         const handleUserInteraction = () => {
             initializeAudio();
             setHasMusicInteraction(true);
-            
+
             // Remove event listeners after first interaction
             document.removeEventListener('click', handleUserInteraction);
             document.removeEventListener('touchstart', handleUserInteraction);
@@ -862,7 +934,7 @@ const App = () => {
                 audioRef.current.loop = true;
                 audioRef.current.volume = 0.5;
             }
-            
+
             audioRef.current.play().then(() => {
                 setMusicPlaying(true);
             }).catch(error => {
@@ -916,31 +988,31 @@ const App = () => {
             {showOpening && (
                 <OpeningAnimation onComplete={() => setShowOpening(false)} />
             )}
-            
+
             {!showOpening && (
                 <>
-                    <Controls 
+                    <Controls
                         theme={theme}
                         onThemeToggle={handleThemeToggle}
                         musicPlaying={musicPlaying}
                         onMusicToggle={handleMusicToggle}
                         hasMusicInteraction={hasMusicInteraction}
                     />
-                    
+
                     <Hero />
                     <Gallery />
                     <Dates />
                     <LoveNotes />
                     <RomanticQuotes />
-                    
+
                     {/* Surprise button placed above footer */}
                     <SurpriseButton onClick={() => setShowSurprise(true)} />
-                    
+
                     <Footer />
-                    
-                    <SurpriseModal 
-                        isOpen={showSurprise} 
-                        onClose={() => setShowSurprise(false)} 
+
+                    <SurpriseModal
+                        isOpen={showSurprise}
+                        onClose={() => setShowSurprise(false)}
                     />
                 </>
             )}
