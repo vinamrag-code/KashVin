@@ -135,87 +135,87 @@ const Hero = () => {
 // Gallery Component
 const Gallery = () => {
     const moments = [
-        {
+        { 
             image: 'images/photo1.jpeg',
             caption: 'Every moment with you feels like a dream come true 💕'
         },
-        {
+        { 
             image: 'images/photo2.jpeg',
             caption: 'Your smile is my favorite thing in the whole world 😊✨'
         },
-        {
+        { 
             image: 'images/photo3.jpeg',
             caption: 'Falling in love with you was the easiest thing I\'ve ever done 💖'
         },
-        {
+        { 
             image: 'images/photo4.jpeg',
             caption: 'You make my heart skip a beat every single day 💓'
         },
-        {
+        { 
             image: 'images/photo5.jpeg',
             caption: 'Being with you feels like home, safe and warm 🏠💕'
         },
-        {
+        { 
             image: 'images/photo6.jpeg',
             caption: 'You are my sunshine, my moon, and all my stars 🌙⭐'
         },
-        {
+        { 
             image: 'images/photo7.jpeg',
             caption: 'In your eyes, I found my forever home 👀💕'
         },
-        {
+        { 
             image: 'images/photo8.jpeg',
             caption: 'You turned my world into a beautiful place 🌍✨'
         },
-        {
+        { 
             image: 'images/photo9.jpeg',
             caption: 'Loving you is the best decision I\'ve ever made 💖'
         },
-        {
+        { 
             image: 'images/photo10.jpeg',
             caption: 'Every day with you is a new adventure 🗺️💕'
         },
-        {
+        { 
             image: 'images/photo11.jpeg',
             caption: 'You are my today and all of my tomorrows 📅💖'
         },
-        {
+        { 
             image: 'images/photo13.jpeg',
             caption: 'I fall in love with you more every single day 💕✨'
         },
-        {
+        { 
             image: 'images/photo14.jpeg',
             caption: 'You are my happy place, my peace, my everything 🧘💖'
         },
-        {
+        { 
             image: 'images/photo16.jpeg',
             caption: 'You are the missing piece I never knew I needed 🧩💖'
         },
-        {
+        { 
             image: 'images/photo17.jpeg',
             caption: 'Your love makes everything brighter and more beautiful ✨💕'
         },
-        {
+        { 
             image: 'images/photo18.jpeg',
             caption: 'I love how you make ordinary moments feel extraordinary 🌟💖'
         },
-        {
+        { 
             image: 'images/photo19.jpeg',
             caption: 'You are my favorite hello and my hardest goodbye 👋💕'
         },
-        {
+        { 
             image: 'images/photo20.jpeg',
             caption: 'Being yours is the greatest honor of my life 💍💖'
         },
-        {
+        { 
             image: 'images/photo21.jpeg',
             caption: 'Your love is the anchor that keeps me grounded ⚓💕'
         },
-        {
+        { 
             image: 'images/photo22.jpeg',
             caption: 'I love you more than words could ever express 📝💖'
         },
-        {
+        { 
             image: 'images/photo23.jpeg',
             caption: 'You are my always and forever, my one and only 💕✨'
         }
@@ -226,7 +226,7 @@ const Gallery = () => {
 
     return (
         <section className="section" id="moments">
-            <h2 className="section-title">Our Beautiful Moments 💖</h2>
+            <h2 className="section-title">Our Moments</h2>
             <div className="gallery-3d-container">
                 <div className="gallery-3d-disc">
                     {moments.map((moment, index) => {
@@ -236,7 +236,8 @@ const Gallery = () => {
                                 key={index}
                                 className="gallery-3d-item"
                                 style={{
-                                    '--angle': `${angle}deg`
+                                    '--angle': `${angle}deg`,
+                                    '--index': index
                                 }}
                             >
                                 <div className="gallery-item">
