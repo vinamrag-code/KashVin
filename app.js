@@ -221,44 +221,31 @@ const Gallery = () => {
         }
     ];
 
+    const totalItems = moments.length;
+    const angleStep = 360 / totalItems;
+
     return (
         <section className="section" id="moments">
             <h2 className="section-title">Our Beautiful Moments 💖</h2>
-            <div className="gallery-container">
-                {/* Decorative floating hearts */}
-                {[...Array(4)].map((_, i) => (
-                    <div
-                        key={i}
-                        className="gallery-heart"
-                        style={{
-                            animationDelay: `${i * 1}s`,
-                            fontSize: `${Math.random() * 1 + 1.8}rem`
-                        }}
-                    >
-                        {['💕', '💖', '💗', '💓'][i]}
-                    </div>
-                ))}
-
-                <div className="gallery-grid">
-                    {moments.map((moment, index) => (
-                        <div
-                            key={index}
-                            className="gallery-item"
-                            style={{
-                                animationDelay: `${index * 0.1}s`,
-                                opacity: 0,
-                                transform: 'translateY(30px)',
-                                animation: 'fadeInUp 0.8s ease-out forwards'
-                            }}
-                        >
-                            <img
-                                src={moment.image}
-                                alt={`Memory ${index + 1}`}
-                                loading="lazy"
-                            />
-                            <div className="gallery-caption">{moment.caption}</div>
-                        </div>
-                    ))}
+            <div className="gallery-3d-container">
+                <div className="gallery-3d-disc">
+                    {moments.map((moment, index) => {
+                        const angle = index * angleStep;
+                        return (
+                            <div
+                                key={index}
+                                className="gallery-3d-item"
+                                style={{
+                                    '--angle': `${angle}deg`
+                                }}
+                            >
+                                <div className="gallery-item">
+                                    <img src={moment.image} alt={`Memory ${index + 1}`} />
+                                    <div className="gallery-caption">{moment.caption}</div>
+                                </div>
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
         </section>
@@ -673,7 +660,7 @@ const SurpriseModal = ({ isOpen, onClose }) => {
         <div className={`surprise-modal ${isOpen ? 'active' : ''}`} onClick={onClose}>
             {/* Floating hearts in modal */}
             {[...Array(8)].map((_, i) => (
-                <div 
+                <div
                     key={i}
                     className="surprise-heart"
                     style={{
@@ -687,21 +674,21 @@ const SurpriseModal = ({ isOpen, onClose }) => {
                     {['💕', '💖', '💗', '💓', '💝', '💘'][Math.floor(Math.random() * 6)]}
                 </div>
             ))}
-            
+
             <div className="surprise-content" onClick={(e) => e.stopPropagation()}>
                 <button className="surprise-close" onClick={onClose}>×</button>
-                <h2 style={{ 
-                    fontSize: '2.2rem', 
-                    marginBottom: '1.5rem', 
+                <h2 style={{
+                    fontSize: '2.2rem',
+                    marginBottom: '1.5rem',
                     fontFamily: "'Playfair Display', serif",
                     color: 'var(--pink-deep)',
                     textShadow: '0 2px 4px var(--shadow-soft)'
                 }}>
                     💝 A Special Message Just For You 💝
                 </h2>
-                <p style={{ 
-                    fontSize: '1.3rem', 
-                    lineHeight: '1.8', 
+                <p style={{
+                    fontSize: '1.3rem',
+                    lineHeight: '1.8',
                     marginBottom: '1.5rem',
                     color: 'var(--text-dark)'
                 }}>
@@ -714,8 +701,8 @@ const SurpriseModal = ({ isOpen, onClose }) => {
                     marginBottom: '1.5rem',
                     borderLeft: '4px solid var(--pink-deep)'
                 }}>
-                    <p style={{ 
-                        fontSize: '1.2rem', 
+                    <p style={{
+                        fontSize: '1.2rem',
                         lineHeight: '1.7',
                         color: 'var(--text-dark)',
                         fontStyle: 'italic'
@@ -730,8 +717,8 @@ const SurpriseModal = ({ isOpen, onClose }) => {
                     padding: '1.5rem',
                     border: '1px solid rgba(255, 182, 193, 0.3)'
                 }}>
-                    <p style={{ 
-                        fontSize: '1.2rem', 
+                    <p style={{
+                        fontSize: '1.2rem',
                         lineHeight: '1.7',
                         color: 'var(--text-dark)',
                         fontWeight: '500'
