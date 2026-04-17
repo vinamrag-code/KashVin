@@ -31,10 +31,13 @@ const OpeningAnimation = ({ onComplete }) => {
 const Hero = () => {
     const [currentPhoto, setCurrentPhoto] = useState(0);
     const [isRotating, setIsRotating] = useState(false);
+    const [isHoveringPhoto, setIsHoveringPhoto] = useState(false);
     const photos = [
         'K&V/photo6.jpeg',
         'K&V/photo2.jpeg',
-        'images/photo12.jpeg'
+        'images/photo12.jpeg',
+        'images/photo1.jpeg',
+        'images/photo3.jpeg'
     ];
 
     useEffect(() => {
@@ -60,21 +63,52 @@ const Hero = () => {
 
     return (
         <section className="hero">
-            {[...Array(5)].map((_, i) => (
-                <div key={i} className="floating-heart" style={{
-                    left: `${10 + i * 20}%`,
-                    top: `${15 + i * 15}%`,
-                    animationDelay: `${i * 0.5}s`
-                }}>💕</div>
+            {[...Array(12)].map((_, i) => (
+                <div 
+                    key={i} 
+                    className="floating-heart" 
+                    style={{
+                        left: `${Math.random() * 90}%`,
+                        top: `${Math.random() * 90}%`,
+                        animationDelay: `${Math.random() * 3}s`,
+                        fontSize: `${Math.random() * 1 + 1.5}rem`,
+                        opacity: `${Math.random() * 0.3 + 0.4}`,
+                        filter: `hue-rotate(${Math.random() * 60}deg)`
+                    }}
+                >
+                    {['💕', '💖', '💗', '💓', '💝', '💘'][Math.floor(Math.random() * 6)]}
+                </div>
+            ))}
+            
+            {[...Array(20)].map((_, i) => (
+                <div 
+                    key={`sparkle-${i}`}
+                    className="sparkle" 
+                    style={{
+                        left: `${Math.random() * 100}%`,
+                        top: `${Math.random() * 100}%`,
+                        animationDelay: `${Math.random() * 2}s`,
+                        width: `${Math.random() * 4 + 4}px`,
+                        height: `${Math.random() * 4 + 4}px`
+                    }}
+                />
             ))}
             <h1 className="hero-title">To the Love of My Life ❤️</h1>
             <div className="photo-carousel">
-                <div className={`photo-container ${isRotating ? 'rotating' : ''}`}>
+                <div 
+                    className={`photo-container ${isRotating ? 'rotating' : ''}`}
+                    onMouseEnter={() => setIsHoveringPhoto(true)}
+                    onMouseLeave={() => setIsHoveringPhoto(false)}
+                >
                     <img 
                         key={currentPhoto}
                         src={photos[currentPhoto]} 
                         alt="Beautiful moments"
                         className="carousel-image"
+                        style={{
+                            transform: isHoveringPhoto ? 'scale(1.05)' : 'scale(1)',
+                            transition: 'transform 0.4s ease'
+                        }}
                     />
                 </div>
                 <div className="carousel-controls">
@@ -84,6 +118,12 @@ const Hero = () => {
                             className={`carousel-btn ${index === currentPhoto ? 'active' : ''}`}
                             onClick={() => handlePhotoChange(index)}
                             aria-label={`Go to photo ${index + 1}`}
+                            style={{
+                                background: index === currentPhoto 
+                                    ? 'linear-gradient(135deg, var(--pink-deep), var(--pink-medium))'
+                                    : 'var(--pink-medium)',
+                                transform: index === currentPhoto ? 'scale(1.3)' : 'scale(1)'
+                            }}
                         />
                     ))}
                 </div>
@@ -215,101 +255,222 @@ const Gallery = () => {
 
 // Dates Component
 const Dates = () => {
+    const [visibleItems, setVisibleItems] = useState({});
+    const timelineRef = useRef(null);
+
     const dates = [
         {
             type: 'Realisation Day',
             icon: '💕',
             date: '18th October 2025',
             title: 'Sitting on bench together',
+            color: 'var(--pink-soft)',
+            sparkles: true
         },
         {
             type: 'Confession Day',
             icon: '💑',
             date: '19th October 2025',
             title: 'Online Chatting',
+            color: 'var(--pink-medium)',
+            sparkles: true
         },
         {
             type: 'Proposal Day',
             icon: '💍',
             date: '27th October 2025',
             title: 'Unprepared Proposal with so much of effort',
+            color: 'var(--pink-deep)',
+            sparkles: true
         },
         {
             type: '1st Bouquet Gift',
             icon: '💐',
             date: '31st October 2025',
             title: 'Surprising you with bouquet.',
+            color: 'var(--lavender)',
+            sparkles: true
         },
         {
             type: '1st Double Date & Long Drive',
             icon: '😘',
             date: '1st November 2025',
             title: 'Went to McDonald as a surprise long drive with Shlok & Varda',
+            color: 'var(--gold)',
+            sparkles: true
         },
         {
             type: '1 Month Anniversary',
             icon: '💌',
             date: '27th November 2025',
             title: 'Went to Champa Gali had a deep convo and good bike ride.',
+            color: 'var(--pink-medium)',
+            sparkles: true
         },
         {
             type: 'Special Day',
             icon: '💖',
             date: '30th November 2025',
             title: 'Made love for the first time (one big step).',
+            color: 'var(--pink-deep)',
+            sparkles: true
         },
         {
             type: '2 Month Anniversary',
             icon: '💝',
             date: '27th December 2025',
             title: 'Celebrated on video call together.',
+            color: 'var(--lavender-dark)',
+            sparkles: true
         },
         {
             type: 'Long distance ended',
             icon: '🫂',
             date: '4th January 2026',
             title: 'Finally meeting each other after a winter break of 15 days which felt more than a year.',
+            color: 'var(--pink-soft)',
+            sparkles: true
         },
         {
             type: '3 Month Anniversary',
             icon: '💘',
             date: '27th January 2026',
             title: 'Postponed our date, went to Kake da Hotel with group.',
+            color: 'var(--pink-medium)',
+            sparkles: true
         },
         {
             type: 'First Night Stay',
             icon: '💕',
             date: '1st February 2026',
             title: 'Stayed at PG, drank first time together.',
+            color: 'var(--pink-deep)',
+            sparkles: true
         },
         {
             type: 'Valentine Week Started',
             icon: '💖',
             date: '7th February 2026',
             title: 'Valentine Week Started with flowers and chocolates.',
+            color: 'var(--lavender)',
+            sparkles: true
         },
     ];
 
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const index = parseInt(entry.target.dataset.index);
+                        setVisibleItems(prev => ({...prev, [index]: true}));
+                    }
+                });
+            },
+            {
+                threshold: 0.2,
+                rootMargin: '0px 0px -100px 0px'
+            }
+        );
+
+        const items = document.querySelectorAll('.timeline-item');
+        items.forEach((item, index) => {
+            item.dataset.index = index;
+            observer.observe(item);
+        });
+
+        return () => {
+            items.forEach(item => observer.unobserve(item));
+        };
+    }, []);
+
     return (
         <section className="section" id="dates">
-            <h2 className="section-title">Our Dates</h2>
-            <div className="dates-timeline">
+            <h2 className="section-title">Our Love Timeline 💕</h2>
+            <div className="dates-timeline" ref={timelineRef}>
                 <div className="timeline-line"></div>
                 {dates.map((date, index) => (
-                    <div key={index} className="timeline-item">
-                        <div className="timeline-dot"></div>
-                        <div className="timeline-content">
+                    <div 
+                        key={index} 
+                        className={`timeline-item ${visibleItems[index] ? 'visible' : ''}`}
+                        style={{
+                            animationDelay: `${index * 0.1}s`,
+                            transitionDelay: `${index * 0.1}s`
+                        }}
+                        data-index={index}
+                    >
+                        <div 
+                            className="timeline-dot"
+                            style={{
+                                background: date.color,
+                                boxShadow: `0 0 30px ${date.color.replace(')', ', 0.5)').replace('rgb', 'rgba')},
+                                0 0 50px ${date.color.replace(')', ', 0.3)').replace('rgb', 'rgba')}`
+                            }}
+                            title={`Click to highlight`}
+                            onClick={() => {
+                                const item = document.querySelector(`.timeline-item:nth-child(${index + 1}) .timeline-content`);
+                                if (item) {
+                                    item.style.transform = 'translateY(-15px) scale(1.05)';
+                                    item.style.boxShadow = `0 30px 70px ${date.color.replace(')', ', 0.4)').replace('rgb', 'rgba')}`;
+                                    
+                                    setTimeout(() => {
+                                        item.style.transform = 'translateY(-10px) scale(1.03)';
+                                        item.style.boxShadow = '0 25px 60px var(--shadow-medium)';
+                                    }, 1000);
+                                }
+                            }}
+                        ></div>
+                        <div 
+                            className="timeline-content"
+                            style={{
+                                borderColor: date.color.replace(')', ', 0.3)').replace('rgb', 'rgba'),
+                                '--timeline-color': date.color
+                            }}
+                        >
                             {date.date && (
                                 <div className="timeline-date">
-                                    {date.icon && <span>{date.icon} </span>}
+                                    {date.icon && <span className="timeline-date-icon">{date.icon}</span>}
                                     <span>{date.date}</span>
                                 </div>
                             )}
                             {date.type && (
-                                <div className="timeline-type">{date.type}</div>
+                                <div 
+                                    className="timeline-type"
+                                    style={{ color: date.color }}
+                                >
+                                    {date.type}
+                                </div>
                             )}
                             <h3 className="timeline-title">{date.title}</h3>
+                            
+                            {date.sparkles && (
+                                <div className="sparkle" style={{
+                                    position: 'absolute',
+                                    top: '10px',
+                                    right: '10px',
+                                    width: '8px',
+                                    height: '8px',
+                                    animation: 'sparkle 2s ease-in-out infinite'
+                                }} />
+                            )}
                         </div>
+                    </div>
+                ))}
+                
+                {/* Timeline floating hearts */}
+                {[...Array(8)].map((_, i) => (
+                    <div 
+                        key={`timeline-heart-${i}`}
+                        className="floating-heart" 
+                        style={{
+                            left: `${Math.random() * 90 + 5}%`,
+                            top: `${Math.random() * 100}%`,
+                            animationDelay: `${Math.random() * 4}s`,
+                            fontSize: `${Math.random() * 1 + 1.2}rem`,
+                            opacity: `${Math.random() * 0.2 + 0.3}`
+                        }}
+                    >
+                        {['💕', '💖', '💗'][Math.floor(Math.random() * 3)]}
                     </div>
                 ))}
             </div>
@@ -318,7 +479,7 @@ const Dates = () => {
 };
 
 // Typewriter Component
-const Typewriter = ({ text, speed = 50 }) => {
+const Typewriter = ({ text, speed = 50, onComplete }) => {
     const [displayedText, setDisplayedText] = useState('');
     const [isComplete, setIsComplete] = useState(false);
 
@@ -331,11 +492,14 @@ const Typewriter = ({ text, speed = 50 }) => {
             } else {
                 setIsComplete(true);
                 clearInterval(interval);
+                if (onComplete) {
+                    onComplete();
+                }
             }
         }, speed);
 
         return () => clearInterval(interval);
-    }, [text, speed]);
+    }, [text, speed, onComplete]);
 
     return (
         <span className="typewriter-text">
@@ -347,24 +511,144 @@ const Typewriter = ({ text, speed = 50 }) => {
 
 // Love Notes Component
 const LoveNotes = () => {
+    const [visibleNotes, setVisibleNotes] = useState({});
+    const notesRef = useRef(null);
+
     const notes = [
-        'Every moment with you feels like a dream I never want to wake up from.',
-        'Your voice is my favorite sound, and your smile is my favorite view.',
-        'Distance means nothing when someone means everything.',
-        'I fall in love with you more every single day, even when we\'re apart.'
+        {
+            text: 'Every moment with you feels like a dream I never want to wake up from.',
+            icon: '💭',
+            color: 'var(--pink-soft)'
+        },
+        {
+            text: 'Your voice is my favorite sound, and your smile is my favorite view.',
+            icon: '😊',
+            color: 'var(--pink-medium)'
+        },
+        {
+            text: 'Distance means nothing when someone means everything.',
+            icon: '💕',
+            color: 'var(--pink-deep)'
+        },
+        {
+            text: 'I fall in love with you more every single day, even when we\'re apart.',
+            icon: '💘',
+            color: 'var(--lavender)'
+        },
+        {
+            text: 'You are the reason I believe in love at first sight, and every sight after.',
+            icon: '👀',
+            color: 'var(--gold)'
+        },
+        {
+            text: 'In your arms is where I feel most at home, most loved, and most myself.',
+            icon: '🏠',
+            color: 'var(--lavender-dark)'
+        }
     ];
 
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const index = parseInt(entry.target.dataset.index);
+                        setVisibleNotes(prev => ({...prev, [index]: true}));
+                    }
+                });
+            },
+            {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            }
+        );
+
+        const noteCards = document.querySelectorAll('.note-card');
+        noteCards.forEach((card, index) => {
+            card.dataset.index = index;
+            observer.observe(card);
+        });
+
+        return () => {
+            noteCards.forEach(card => observer.unobserve(card));
+        };
+    }, []);
+
     return (
-        <section className="section" id="love-notes">
-            <h2 className="section-title">Love Notes</h2>
+        <section className="section" id="love-notes" ref={notesRef}>
+            <h2 className="section-title">Love Notes from My Heart 💌</h2>
             <div className="love-notes">
                 {notes.map((note, index) => (
-                    <div key={index} className="note-card">
-                        <span className="note-heart">💖</span>
-                        <Typewriter text={note} speed={30} />
+                    <div 
+                        key={index} 
+                        className="note-card"
+                        data-index={index}
+                        style={{
+                            opacity: visibleNotes[index] ? 1 : 0,
+                            transform: visibleNotes[index] ? 'translateY(0)' : 'translateY(30px)',
+                            transition: `all 0.6s ease-out ${index * 0.1}s`,
+                            borderColor: note.color.replace(')', ', 0.4)').replace('rgb', 'rgba'),
+                            '--note-color': note.color
+                        }}
+                    >
+                        <span 
+                            className="note-heart"
+                            style={{
+                                color: note.color,
+                                fontSize: '2.5rem',
+                                animationDelay: `${index * 0.2}s`
+                            }}
+                        >
+                            {note.icon}
+                        </span>
+                        <Typewriter 
+                            text={note.text} 
+                            speed={25} 
+                            onComplete={() => {
+                                // Add a subtle animation when typing completes
+                                const heart = document.querySelector(`.note-card:nth-child(${index + 1}) .note-heart`);
+                                if (heart) {
+                                    heart.style.animation = 'heartbeat 1s ease-in-out, float 3s ease-in-out infinite';
+                                }
+                            }}
+                        />
+                        
+                        {/* Decorative sparkles */}
+                        {[...Array(3)].map((_, i) => (
+                            <div 
+                                key={i}
+                                className="sparkle"
+                                style={{
+                                    position: 'absolute',
+                                    left: `${Math.random() * 80 + 10}%`,
+                                    top: `${Math.random() * 60 + 20}%`,
+                                    width: `${Math.random() * 3 + 3}px`,
+                                    height: `${Math.random() * 3 + 3}px`,
+                                    background: note.color,
+                                    animationDelay: `${Math.random() * 2}s`
+                                }}
+                            />
+                        ))}
                     </div>
                 ))}
             </div>
+            
+            {/* Floating hearts around notes section */}
+            {[...Array(6)].map((_, i) => (
+                <div 
+                    key={`notes-heart-${i}`}
+                    className="floating-heart" 
+                    style={{
+                        left: `${Math.random() * 90 + 5}%`,
+                        top: `${Math.random() * 30 + 35}%`,
+                        animationDelay: `${Math.random() * 3}s`,
+                        fontSize: `${Math.random() * 1 + 1.5}rem`,
+                        opacity: `${Math.random() * 0.2 + 0.4}`
+                    }}
+                >
+                    {['💕', '💖', '💗', '💓'][Math.floor(Math.random() * 4)]}
+                </div>
+            ))}
         </section>
     );
 };
@@ -448,11 +732,76 @@ const SurpriseButton = ({ onClick }) => {
     );
 };
 
+// Romantic Quotes Component
+const RomanticQuotes = () => {
+    const quotes = [
+        {
+            quote: "You are my today and all of my tomorrows.",
+            author: "— Leo Christopher",
+            icon: "✨"
+        },
+        {
+            quote: "I saw that you were perfect, and so I loved you. Then I saw that you were not perfect and I loved you even more.",
+            author: "— Angelita Lim",
+            icon: "💫"
+        },
+        {
+            quote: "I love you not only for what you are, but for what I am when I am with you.",
+            author: "— Elizabeth Barrett Browning",
+            icon: "🌟"
+        },
+        {
+            quote: "If I had a flower for every time I thought of you... I could walk through my garden forever.",
+            author: "— Alfred Tennyson",
+            icon: "🌸"
+        }
+    ];
+
+    return (
+        <section className="section" id="quotes">
+            <h2 className="section-title">Words That Describe Us 💬</h2>
+            <div className="quotes-container">
+                {quotes.map((item, index) => (
+                    <div 
+                        key={index} 
+                        className="quote-card"
+                        style={{
+                            animationDelay: `${index * 0.2}s`
+                        }}
+                    >
+                        <div className="quote-icon">{item.icon}</div>
+                        <p className="quote-text">{item.quote}</p>
+                        <p className="quote-author">{item.author}</p>
+                    </div>
+                ))}
+            </div>
+        </section>
+    );
+};
+
 // Footer Component
 const Footer = () => {
+    const currentYear = new Date().getFullYear();
+    
     return (
         <footer className="footer">
-            <p className="footer-text">Made with ❤️ just for you</p>
+            <div className="footer-hearts">
+                {[...Array(5)].map((_, i) => (
+                    <span 
+                        key={i}
+                        className="footer-heart"
+                        style={{
+                            animationDelay: `${i * 0.3}s`,
+                            fontSize: `${Math.random() * 1 + 1.5}rem`
+                        }}
+                    >
+                        {['💕', '💖', '💗', '💓', '💝'][i]}
+                    </span>
+                ))}
+            </div>
+            <p className="footer-text">Made with infinite love ❤️ just for you</p>
+            <p className="footer-subtext">Every moment with you is a treasure</p>
+            <p className="footer-year">© {currentYear} • Forever Yours</p>
         </footer>
     );
 };
@@ -582,6 +931,7 @@ const App = () => {
                     <Gallery />
                     <Dates />
                     <LoveNotes />
+                    <RomanticQuotes />
                     
                     {/* Surprise button placed above footer */}
                     <SurpriseButton onClick={() => setShowSurprise(true)} />
