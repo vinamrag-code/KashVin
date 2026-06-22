@@ -1261,10 +1261,12 @@ html {
 </head>
 <body>
   <div id="root"></div>
+
   <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <script type="text/babel" data-presets="react">
+  <script src="https://unpkg.com/@babel/standalone@7.23.10/babel.min.js"></script>
+
+  <script id="app-source" type="text/jsx-source">
 const { useState, useEffect, useRef } = React;
 
 /* ─────────────────────────────────────────
@@ -2035,6 +2037,18 @@ if (document.readyState === 'loading') {
     ReactDOM.createRoot(document.getElementById('root')).render(<App />);
 }
 
+  </script>
+
+  <script>
+    // Manually transform and execute - works on both file:// and http://
+    var source = document.getElementById('app-source').textContent;
+    var transformed = Babel.transform(source, {
+      presets: ['react'],
+      filename: 'app.jsx'
+    }).code;
+    var script = document.createElement('script');
+    script.textContent = transformed;
+    document.body.appendChild(script);
   </script>
 </body>
 </html>
